@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The $BRICK Coin | Solana Pump.fun Launch</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Inter font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        /* Brick Red */
+        .text-brick { color: #cc5533; }
+        .bg-brick { background-color: #cc5533; }
+        /* Solana-esque Pink/Purple */
+        .bg-solana-accent { background-color: #9945FF; }
+        .text-solana-accent { color: #9945FF; }
+        /* Pig Pink */
+        .bg-pig-pink { background-color: #f7a8b8; }
+        .glow-shadow { box-shadow: 0 0 15px rgba(153, 69, 255, 0.7); }
+        .bg-hustle-gradient {
+            background-image: linear-gradient(to right, #1f2937, #111827);
+        }
+        /* Solana Gradient Button Effect */
+        .solana-button {
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            background: linear-gradient(90deg, #9945FF 0%, #14F195 100%);
+            transition: all 0.3s ease;
+        }
+        .solana-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(153, 69, 255, 0.8);
+        }
+        /* Spinner CSS */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #9945FF;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-gray-900/90 backdrop-blur-md shadow-lg border-b border-solana-accent/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 text-2xl font-black text-solana-accent">
+                    $BRICK <span class="text-brick">🧱</span>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="#about" class="text-gray-300 hover:text-solana-accent transition duration-300">Story</a>
+                    <a href="#tokenomics" class="text-gray-300 hover:text-solana-accent transition duration-300">Tokenomics</a>
+                    <a href="#hype-generator" class="text-gray-300 hover:text-solana-accent transition duration-300">Hype ✨</a>
+                    <a href="#game-zone" class="text-gray-300 hover:text-brick transition duration-300 font-bold">Game 🕹️</a>
+                    <a href="#buy" class="text-gray-300 hover:text-solana-accent transition duration-300 font-bold">Launch!</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section (The Brick House) -->
+    <header class="text-center py-20 md:py-32 bg-hustle-gradient" id="home">
+        <div class="max-w-5xl mx-auto px-4">
+            <h1 class="text-6xl sm:text-7xl lg:text-8xl font-black mb-6 text-solana-accent">
+                $BRICK: Built on Solana, <span class="text-brick">HODL'd Forever.</span>
+            </h1>
+            <p class="text-lg sm:text-xl text-gray-400 mb-10 max-w-3xl mx-auto">
+                **The strongest meme house is launching on pump.fun!** Survive the Big Bad Wolf of market crashes with an unshakeable, Solana-speed foundation.
+            </p>
+
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 mb-12">
+                <a href="#buy" class="solana-button text-gray-900 font-extrabold py-3 px-10 rounded-xl text-xl shadow-2xl">
+                    LAUNCH ON PUMP.FUN 🔥
+                </a>
+            </div>
+
+            <!-- Contract Address Display (Placeholder until deployment) -->
+            <div class="bg-gray-800 p-4 rounded-xl max-w-lg mx-auto border-2 border-solana-accent">
+                <p class="text-sm text-gray-400 mb-2 font-mono">Contract Address (Solana - *To be announced on launch*):</p>
+                <div class="flex items-center justify-between">
+                    <span id="contract-address" class="truncate font-mono text-sm sm:text-base text-solana-accent select-all font-bold">
+                        BRICKkHouseseSoLAnaADDRess123456789
+                    </span>
+                    <button id="copy-btn" class="ml-4 p-2 bg-gray-700 rounded-lg hover:bg-solana-accent transition duration-300" onclick="copyContract()">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-gray-300">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v2.25A2.25 2.25 0 0 1 13.5 22.5h-9a2.25 2.25 0 0 1-2.25-2.25v-9a2.25 2.25 0 0 1 2.25-2.25h2.25m4.5 4.5 4.5-4.5m0 0-4.5-4.5m4.5 4.5h-8.25" />
+                        </svg>
+                    </button>
+                </div>
+                <div id="copy-message" class="text-sm text-green-400 mt-2 opacity-0 transition-opacity duration-300">Address Copied!</div>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Story/About Section -->
+    <section id="about" class="py-16 md:py-24 max-w-7xl mx-auto px-4">
+        <h2 class="text-5xl font-extrabold text-center mb-12 text-solana-accent">The Solana Legend of The $BRICK</h2>
+        <div class="md:grid md:grid-cols-3 gap-8">
+            <!-- Pig 1: Straw -->
+            <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 mb-6 md:mb-0 transform hover:scale-105 transition duration-300 shadow-lg">
+                <div class="text-5xl mb-4 text-center">🌾</div>
+                <h3 class="text-2xl font-bold text-solana-accent mb-2 text-center">Pig 1 ($STRAW)</h3>
+                <p class="text-gray-400 text-center">Built on pure hype, got **rekt** by the first market breeze. His house was straw—a reminder that low-effort projects get *huffed and puffed* right out of existence.</p>
+            </div>
+
+            <!-- Pig 2: Sticks -->
+            <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 mb-6 md:mb-0 transform hover:scale-105 transition duration-300 shadow-lg">
+                <div class="text-5xl mb-4 text-center">🪵</div>
+                <h3 class="text-2xl font-bold text-solana-accent mb-2 text-center">Pig 2 ($STICKS)</h3>
+                <p class="text-gray-400 text-center">A step up, but his structure was still vulnerable. The Big Bad Wolf of **Volatility** blew it down. Don't build your bag on sticks—it ends in tears and zero liquidity.</p>
+            </div>
+
+            <!-- Pig 3: BRICK -->
+            <div class="bg-brick p-6 rounded-xl border border-solana-accent transform hover:scale-105 transition duration-300 shadow-2xl shadow-solana-accent/40">
+                <div class="text-5xl mb-4 text-center">🧱</div>
+                <h3 class="text-2xl font-bold text-white mb-2 text-center">Pig 3 ($BRICK) - The Diamond Hand</h3>
+                <p class="text-white text-center font-semibold">The only one who understands the market. Built on strong tokenomics and the speed of Solana. **This house HODLs. We moon from here!**</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tokenomics Section -->
+    <section id="tokenomics" class="py-16 md:py-24 bg-gray-800/50">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-5xl font-extrabold text-center mb-12 text-brick">The Solana Blueprint</h2>
+
+            <!-- Key Metrics -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center mb-16">
+                <div class="bg-gray-900 p-6 rounded-xl border border-gray-700 shadow-lg">
+                    <p class="text-4xl font-black text-solana-accent mb-2">1,000,000,000</p>
+                    <p class="text-gray-400 uppercase tracking-widest text-sm">Total Supply (Fixed)</p>
+                </div>
+                <div class="bg-gray-900 p-6 rounded-xl border border-gray-700 shadow-lg">
+                    <p class="text-4xl font-black text-brick mb-2">0%</p>
+                    <p class="text-gray-400 uppercase tracking-widest text-sm">Buy/Sell Tax (Pure Memecoin)</p>
+                </div>
+                <div class="bg-gray-900 p-6 rounded-xl border border-gray-700 shadow-lg">
+                    <p class="text-4xl font-black text-solana-accent mb-2">PUMP.FUN</p>
+                    <p class="text-gray-400 uppercase tracking-widest text-sm">Launch Platform</p>
+                </div>
+            </div>
+
+            <div class="max-w-4xl mx-auto text-center p-6 bg-gray-900 rounded-xl border border-solana-accent/50 shadow-2xl">
+                <h3 class="text-3xl font-bold text-white mb-4">Why Launch on Pump.fun?</h3>
+                <p class="text-gray-400">
+                    Pump.fun guarantees 100% security for $BRICK. Once the token hits its required market cap, the liquidity automatically transitions to **Raydium**, where the LP is **burned**. This means the Big Bad Wolf can never run away with your funds.
+                </p>
+                <p class="text-xl font-bold mt-4 text-solana-accent">SECURE. AUTOMATIC. BRICK SOLID.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- LLM Feature: Hype Generator Section -->
+    <section id="hype-generator" class="py-16 md:py-24 max-w-7xl mx-auto px-4">
+        <h2 class="text-5xl font-extrabold text-center mb-12 text-pink-400">The Gemini Hype Engine ✨</h2>
+
+        <div class="grid md:grid-cols-2 gap-8 mb-8">
+            <!-- 1. Meme Idea Generator -->
+            <div class="bg-gray-800 p-6 rounded-xl border border-solana-accent/50 shadow-2xl">
+                <h3 class="text-2xl font-bold text-solana-accent mb-4">✨ Meme Text Generator</h3>
+                <p class="text-gray-400 mb-4">Describe a moment or theme, and Gemini will generate viral meme captions to blow up $BRICK's Telegram!</p>
+
+                <input type="text" id="meme-prompt" placeholder="e.g., The wolf trying to short $BRICK"
+                       class="w-full p-3 mb-4 bg-gray-700 rounded-lg border border-gray-600 focus:outline-none focus:border-solana-accent text-white" />
+
+                <button onclick="generateMemeIdeas()" id="meme-generate-btn"
+                        class="solana-button w-full text-gray-900 font-bold py-3 rounded-xl transition duration-300 flex items-center justify-center">
+                    Generate Meme Captions
+                </button>
+
+                <div id="meme-output" class="mt-4 p-4 bg-gray-900 rounded-lg min-h-[100px] border border-gray-700 text-gray-300 whitespace-pre-wrap">
+                    <!-- Output will appear here -->
+                </div>
+            </div>
+
+            <!-- 2. FUD Fighter -->
+            <div class="bg-gray-800 p-6 rounded-xl border border-solana-accent/50 shadow-2xl">
+                <h3 class="text-2xl font-bold text-solana-accent mb-4">✨ Wolf's FUD Fighter</h3>
+                <p class="text-gray-400 mb-4">Get an instant, powerful, tweet-sized response to fight any FUD the Big Bad Wolf throws our way. **Diamond Hand Certified.**</p>
+
+                <button onclick="generateFudFighter()" id="fud-fighter-btn"
+                        class="bg-brick hover:bg-brick/80 text-white font-bold py-3 px-6 w-full rounded-xl transition duration-300 flex items-center justify-center mb-4">
+                    Generate FUD-Fighter Tweet
+                </button>
+
+                <div id="fud-output" class="mt-4 p-4 bg-gray-900 rounded-lg min-h-[100px] border border-gray-700 text-lg font-semibold text-white text-center flex items-center justify-center">
+                    <!-- Output will appear here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Roadmap Visionary -->
+        <div class="bg-gray-800 p-6 rounded-xl border border-brick/50 shadow-2xl mt-8">
+            <h3 class="text-2xl font-bold text-brick mb-4 text-center">✨ The $BRICK Roadmap Visionary</h3>
+            <p class="text-gray-400 mb-4 text-center max-w-2xl mx-auto">Generate a highly optimistic, three-phase roadmap for $BRICK's journey to the moon, complete with meme goals and community initiatives.</p>
+
+            <button onclick="generateRoadmapVision()" id="roadmap-generate-btn"
+                    class="solana-button w-full text-gray-900 font-bold py-3 rounded-xl transition duration-300 flex items-center justify-center">
+                Dream the Diamond Hand Roadmap
+            </button>
+
+            <div id="roadmap-output" class="mt-4 p-6 bg-gray-900 rounded-xl border border-gray-700 text-gray-300 min-h-[100px]">
+                <!-- Roadmap output will appear here -->
+            </div>
+        </div>
+
+        <div id="loading-indicator" class="mt-8 hidden flex justify-center items-center">
+            <div class="loader mr-3"></div>
+            <span class="text-solana-accent text-lg">Hustling the Solana network...</span>
+        </div>
+    </section>
+    
+    <!-- NEW SECTION: Game Zone -->
+    <section id="game-zone" class="py-16 md:py-24 max-w-7xl mx-auto px-4 bg-gray-800/70">
+        <h2 class="text-5xl font-extrabold text-center mb-12 text-brick">Brick Breaker: HODL Edition 🕹️</h2>
+        <p class="text-xl text-center text-gray-400 mb-8 max-w-2xl mx-auto">Train your diamond hands! Use your paddle to keep the $BRICK bouncing and smash the FUD blocks to achieve an unbreakable moon mission.</p>
+        
+        <div id="game-container" class="flex flex-col items-center justify-center p-4 bg-gray-900 rounded-xl shadow-2xl glow-shadow border border-solana-accent mx-auto" style="max-width: 600px;">
+            <div id="game-stats" class="w-full flex justify-between p-2 mb-2 text-white font-mono text-lg">
+                <span id="score-display">Score: 0</span>
+                <span id="lives-display">Lives: 3</span>
+            </div>
+            <canvas id="brickBreakerCanvas" width="500" height="400" class="rounded-lg border-4 border-gray-700 bg-gray-900 shadow-inner"></canvas>
+            <button id="start-game-btn" class="solana-button text-gray-900 font-extrabold py-3 px-10 rounded-xl text-xl mt-6">
+                START HODL TRAINING
+            </button>
+            <div id="game-message" class="mt-4 text-center text-xl font-bold text-solana-accent min-h-[40px]"></div>
+            <!-- Touch controls for mobile/tablet users -->
+            <div id="touch-controls" class="md:hidden mt-4 w-full flex justify-center space-x-4">
+                <button id="left-btn" class="p-3 bg-gray-700 text-white rounded-lg active:bg-solana-accent/80 transition duration-150 text-3xl">←</button>
+                <button id="right-btn" class="p-3 bg-gray-700 text-white rounded-lg active:bg-solana-accent/80 transition duration-150 text-3xl">→</button>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- How to Buy Section -->
+    <section id="buy" class="py-16 md:py-24 max-w-4xl mx-auto px-4 bg-gray-900/50">
+        <h2 class="text-5xl font-extrabold text-center mb-12 text-solana-accent">Launch Day Protocol (Get Ready to Pump!)</h2>
+        <div class="space-y-8">
+
+            <div class="flex items-start bg-gray-800 p-6 rounded-xl border-l-4 border-brick shadow-lg">
+                <span class="text-3xl font-black text-brick mr-4 mt-1">1.</span>
+                <div>
+                    <h3 class="text-2xl font-bold text-white mb-1">Load Your Wallet with SOL</h3>
+                    <p class="text-gray-400">Install **Phantom** or **Solflare**. You'll need Solana ($SOL) in your wallet to buy $BRICK and cover the tiny gas fees.</p>
+                </div>
+            </div>
+
+            <div class="flex items-start bg-gray-800 p-6 rounded-xl border-l-4 border-solana-accent shadow-lg">
+                <span class="text-3xl font-black text-solana-accent mr-4 mt-1">2.</span>
+                <div>
+                    <h3 class="text-2xl font-bold text-white mb-1">Access Pump.fun</h3>
+                    <p class="text-gray-400">Go directly to **pump.fun** and use the search bar to find the official **$BRICK** token. Use the contract address provided above *once it goes live*.</p>
+                </div>
+            </div>
+
+            <div class="flex items-start bg-gray-800 p-6 rounded-xl border-l-4 border-brick shadow-lg">
+                <span class="text-3xl font-black text-brick mr-4 mt-1">3.</span>
+                <div>
+                    <h3 class="text-2xl font-bold text-white mb-1">SWAP and PUMP!</h3>
+                    <p class="text-gray-400">Connect your Solana wallet, enter the amount of SOL you want to swap, and confirm the transaction. Welcome to the Brick House!</p>
+                </div>
+            </div>
+
+            <div class="flex items-start bg-gray-800 p-6 rounded-xl border-l-4 border-solana-accent shadow-lg">
+                <span class="text-3xl font-black text-solana-accent mr-4 mt-1">4.</span>
+                <div>
+                    <h3 class="text-2xl font-bold text-white mb-1">HODL (The Brick Way)</h3>
+                    <p class="text-gray-400">Enjoy your zero-tax, community-owned token. The LP is burned, the house is built. **The Wolf can't touch us now.**</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Warning Disclaimer -->
+    <section class="bg-red-900/30 p-8 text-center border-t border-b border-red-700">
+        <p class="text-red-400 text-sm font-semibold">
+            ⚠️ DISCLAIMER: This is a speculative memecoin launching on pump.fun. The value is highly volatile. Do not invest money you cannot afford to lose. Always DYOR (Do Your Own Research).
+        </p>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="bg-gray-900 py-10 border-t border-solana-accent/20">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+        <h3 class="text-3xl font-black text-solana-accent mb-4">$BRICK</h3>
+        <div class="flex justify-center space-x-6 mb-6">
+            <!-- X/Twitter Icon -->
+            <a href="#" class="text-gray-400 hover:text-solana-accent transition duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path d="M22 2.5C22 2.613 21.981 2.71 21.942 2.801c-.139 3.864-2.12 7.292-5.006 9.471 2.392-1.282 4.19-3.41 5.09-5.918l-.001-.001c-.012-.036-.027-.066-.046-.094-.13-.193-2.001-3.076-4.225-3.076h-.001l-.001-.001c-.035 0-.07 0-.106.002h-.001l-.001.001c-3.791.246-6.857-2.618-6.857-6.282 0-.258.016-.51.047-.757C9.914 5.922 13.918 8.136 18.5 8.136c3.084 0 5.86-1.558 7.373-3.955 1.054-1.685 1.636-3.666 1.636-5.836 0-3.155-2.028-5.719-4.717-5.719-2.688 0-4.887 2.213-4.887 5.719 0 1.25.32 2.42.873 3.435-3.525-.308-6.611-2.071-8.775-4.773-2.164-2.702-3.329-6.04-3.329-9.52 0-3.708 2.062-7.051 4.773-9.52C5.998 1.135 9.084 2.924 12.609 3.232c-.553-1.015-.873-2.185-.873-3.435 0-3.506 2.199-5.719 4.887-5.719 2.689 0 4.717 2.564 4.717 5.719z" transform="translate(0, 16) scale(0.9) rotate(0) translate(0, 0)"></path></svg>
+            </a>
+            <!-- Telegram Icon -->
+            <a href="#" class="text-gray-400 hover:text-solana-accent transition duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path d="M11.944 0a12 12 0 1 0 12 12 12 12 0 0 0-12-12zm4.332 7.73l-1.656 7.646c-.161.75-1.053 1.052-1.684.512l-1.898-1.528-1.543 1.026a.913.913 0 0 1-1.353-.873l.635-6.636 6.347-3.655c.67-.386 1.344.385.733.996z"/></svg>
+            </a>
+            <!-- Pump.fun Icon (Using a custom icon) -->
+             <a href="https://www.pump.fun/" target="_blank" class="text-gray-400 hover:text-solana-accent transition duration-300" title="Pump.fun">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0 1 12 21 8.25 8.25 0 0 1 6.038 7.047 8.287 8.287 0 0 0 9 9.617a2.25 2.25 0 0 0 3 0 2.25 2.25 0 0 0 3-2.578 8.243 8.243 0 0 1 3.362-2.39c.07-.03.136-.06.205-.09.168-.073.34-.143.515-.208.204-.078.411-.151.62-.218.418-.135.84-.257 1.265-.371.306-.085.615-.162.928-.23a.75.75 0 0 1 .792.934 8.169 8.169 0 0 1-1.161 3.061M12 21a8.252 8.252 0 0 0 4.362-15.786" />
+                </svg>
+            </a>
+        </div>
+        <p class="text-sm text-gray-500">&copy; 2025 The $BRICK Coin. Built on <span class="text-solana-accent">Solana.</span></p>
+    </div>
+</footer>
+
+<!-- JavaScript for LLM, Copy, and Game Functionality -->
+<script>
+    // --- API CONFIGURATION ---
+    const apiKey = "";
+    const apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=" + apiKey;
+
+    // --- UTILITY FUNCTIONS ---
+
+    function showLoading(show) {
+        const loadingIndicator = document.getElementById('loading-indicator');
+        loadingIndicator.classList.toggle('hidden', !show);
+    }
+
+    async function fetchWithBackoff(url, options, maxRetries = 5) {
+        for (let i = 0; i < maxRetries; i++) {
+            try {
+                const response = await fetch(url, options);
+                if (response.ok) {
+                    return response;
+                } else if (response.status === 429 && i < maxRetries - 1) {
+                    const delay = Math.pow(2, i) * 1000 + Math.random() * 1000;
+                    console.log('Rate limit hit. Retrying in ' + (delay / 1000).toFixed(1) + 's...');
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                } else {
+                    throw new Error('API request failed with status: ' + response.status);
+                }
+            } catch (error) {
+                if (i === maxRetries - 1) {
+                    throw error;
+                }
+            }
+        }
+    }
+
+    async function callGemini(userQuery, systemPrompt) {
+        const payload = {
+            contents: [{ parts: [{ text: userQuery }] }],
+            systemInstruction: { parts: [{ text: systemPrompt }] },
+        };
+
+        const options = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        };
+
+        try {
+            const response = await fetchWithBackoff(apiUrl, options);
+            const result = await response.json();
+            
+            const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
+            if (!text) {
+                throw new Error("Gemini response structure invalid or text missing.");
+            }
+            return text;
+        } catch (error) {
+            console.error("Gemini API Error:", error);
+            return "Error generating response. The Big Bad Wolf may have huffed the server.";
+        }
+    }
+
+    // --- GEMINI FEATURES ---
+
+    async function generateMemeIdeas() {
+        const promptInput = document.getElementById('meme-prompt');
+        const outputDiv = document.getElementById('meme-output');
+        const userTheme = promptInput.value.trim();
+
+        if (!userTheme) {
+            outputDiv.innerText = "Please enter a theme first (e.g., 'Whales buying the dip').";
+            return;
+        }
+
+        const systemPrompt = "You are a professional memecoin marketer. Generate 3-5 extremely viral, short, and funny meme text captions for a Solana memecoin called $BRICK. The coin's theme is the Three Little Pigs, where $BRICK is the strong house and the 'Big Bad Wolf' represents market FUD and volatility. Ensure the captions are punchy and highly tweetable. Output only the captions, each on a new line.";
+        
+        showLoading(true);
+        outputDiv.innerText = "";
+        
+        const userQuery = 'Generate meme captions for $BRICK based on the theme: "' + userTheme + '"';
+        
+        const resultText = await callGemini(userQuery, systemPrompt);
+
+        // Replace bullet points or numbers with a line break and a brick emoji for better visual appeal
+        const formattedResult = resultText.replace(/[\*\-•\d\.]/g, '').split('\n').filter(line => line.trim() !== '').map(line => '🧱 ' + line.trim()).join('\n\n');
+        
+        outputDiv.innerText = formattedResult;
+        showLoading(false);
+    }
+
+    async function generateFudFighter() {
+        const outputDiv = document.getElementById('fud-output');
+        
+        const systemPrompt = "You are the Diamond Hand leader of the $BRICK community. Your goal is to write a single, ultra-bullish, tweet-length statement (MAX 25 words) explaining why $BRICK is immune to market FUD using the 'brick house' and 'wolf' metaphor. Use all caps and strong crypto slang. Do NOT include 'tweet' or any preamble/postamble. Just the statement.";
+        const userQuery = "Write a statement to fight FUD.";
+
+        showLoading(true);
+        outputDiv.innerText = "";
+
+        const resultText = await callGemini(userQuery, systemPrompt);
+        
+        outputDiv.innerText = resultText.toUpperCase() + " #BRICK #SOL #PUMPFUN";
+        showLoading(false);
+    }
+    
+    async function generateRoadmapVision() {
+        const outputDiv = document.getElementById('roadmap-output');
+        
+        const systemPrompt = "You are a memecoin strategist. Generate a three-phase (Phase 1, Phase 2, Phase 3) roadmap for the $BRICK token. Each phase should be extremely bullish, use crypto slang, and include funny, exaggerated goals based on the 'Three Little Pigs' and 'Solana' theme. Use titles for each phase and a few bullet points. Use the following structure:\n\n# PHASE 1: [TITLE]\n* [Goal 1]\n* [Goal 2]\n\n# PHASE 2: [TITLE]\n* [Goal 1]\n* [Goal 2]\n\n# PHASE 3: [TITLE]\n* [Goal 1]\n* [Goal 2]";
+        const userQuery = "Generate the next-level, brick-solid roadmap for the $BRICK memecoin on Solana.";
+
+        showLoading(true);
+        outputDiv.innerHTML = '<div class="flex justify-center items-center h-24 text-solana-accent">Generating the new future...</div>';
+
+        const resultText = await callGemini(userQuery, systemPrompt);
+        
+        // Basic formatting to replace Markdown headings with bolder HTML list structure
+        let formattedHtml = '<ul class="space-y-4">';
+        const lines = resultText.split('\n');
+
+        lines.forEach(line => {
+            if (line.startsWith('# PHASE')) {
+                const title = line.substring(line.indexOf(':') + 1).trim();
+                formattedHtml += '<h4 class="text-brick text-xl font-extrabold mt-6 mb-2">💎 ' + title + '</h4>';
+            } else if (line.startsWith('*')) {
+                const goal = line.substring(1).trim();
+                formattedHtml += '<li class="ml-4 list-disc text-gray-300">' + goal + '</li>';
+            }
+        });
+        formattedHtml += '</ul>';
+
+        outputDiv.innerHTML = formattedHtml;
+        showLoading(false);
+    }
+
+
+    // --- EXISTING UTILITY FUNCTIONS ---
+
+    function copyContract() {
+        const contractAddress = document.getElementById('contract-address').innerText.trim();
+        const copyMessage = document.getElementById('copy-message');
+
+        try {
+            const tempInput = document.createElement('input');
+            tempInput.value = contractAddress;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            copyMessage.innerText = 'Address Copied! Get ready to buy.';
+            copyMessage.classList.remove('opacity-0', 'text-red-400');
+            copyMessage.classList.add('opacity-100', 'text-green-400');
+
+            setTimeout(() => {
+                copyMessage.classList.remove('opacity-100');
+                copyMessage.classList.add('opacity-0');
+            }, 2000);
+        } catch (err) {
+            console.error('Failed to copy text: ', err);
+            copyMessage.innerText = 'Failed. Please select and manually copy the address.';
+            copyMessage.classList.remove('opacity-0', 'text-green-400');
+            copyMessage.classList.add('opacity-100', 'text-red-400');
+        }
+    }
+    
+    // Smooth scroll for internal links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    // --- BRICK BREAKER GAME LOGIC ---
+
+    const canvas = document.getElementById('brickBreakerCanvas');
+    const ctx = canvas.getContext('2d');
+    const startBtn = document.getElementById('start-game-btn');
+    const messageDiv = document.getElementById('game-message');
+    const scoreDisplay = document.getElementById('score-display');
+    const livesDisplay = document.getElementById('lives-display');
+    const leftBtn = document.getElementById('left-btn');
+    const rightBtn = document.getElementById('right-btn');
+
+    let animationFrameId;
+    let gameRunning = false;
+    let score = 0;
+    let lives = 3;
+
+    // Ball properties (The $BRICK)
+    let gameX, gameY, gameDx, gameDy; // Renamed to avoid global conflicts
+    const ballRadius = 8;
+    const ballEmoji = '🧱';
+
+    // Paddle properties (The Diamond Hand)
+    const paddleHeight = 10;
+    const paddleWidth = 75;
+    let gamePaddleX; // Renamed to avoid global conflicts
+    let rightPressed = false;
+    let leftPressed = false;
+
+    // Brick properties (The FUD)
+    const brickRowCount = 5;
+    const brickColumnCount = 6;
+    const brickWidth = 75;
+    const brickHeight = 15; // Added height for the brick
+    const brickPadding = 10;
+    const brickOffsetTop = 30;
+    const brickOffsetLeft = 30;
+    let bricks = [];
+
+    // Game state initialization
+    function initGame() {
+        gameX = canvas.width / 2;
+        gameY = canvas.height - 30;
+        gameDx = 2; // Initial speed
+        gameDy = -2;
+
+        gamePaddleX = (canvas.width - paddleWidth) / 2;
+        score = 0;
+        lives = 3;
+        updateStats();
+        
+        // Create the bricks (FUD)
+        bricks = [];
+        for(let c = 0; c < brickColumnCount; c++) {
+            bricks[c] = [];
+            for(let r = 0; r < brickRowCount; r++) {
+                // status 1 means brick is present
+                bricks[c][r] = { x: 0, y: 0, status: 1, color: r % 2 === 0 ? '#9945FF' : '#14F195' }; 
+            }
+        }
+    }
+
+    // Stats UI update
+    function updateStats() {
+        scoreDisplay.innerText = `Score: ${score}`;
+        livesDisplay.innerText = `Lives: ${lives}`;
+    }
+
+    // Drawing Functions
+    function drawBall() {
+        ctx.beginPath();
+        // Use emoji for the ball
+        ctx.font = `${ballRadius * 2}px sans-serif`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(ballEmoji, gameX, gameY);
+        ctx.closePath();
+    }
+
+    function drawPaddle() {
+        ctx.beginPath();
+        ctx.rect(gamePaddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
+        ctx.fillStyle = '#f7a8b8'; // Pig Pink/Diamond Hand color
+        ctx.fill();
+        ctx.closePath();
+    }
+
+    function drawBricks() {
+        for(let c = 0; c < brickColumnCount; c++) {
+            for(let r = 0; r < brickRowCount; r++) {
+                if(bricks[c][r].status === 1) {
+                    const brickX = (c * (brickWidth + brickPadding)) + brickOffsetLeft;
+                    const brickY = (r * (brickHeight + brickPadding)) + brickOffsetTop;
+                    bricks[c][r].x = brickX;
+                    bricks[c][r].y = brickY;
+                    ctx.beginPath();
+                    ctx.rect(brickX, brickY, brickWidth, brickHeight);
+                    ctx.fillStyle = bricks[c][r].color; // Solana accent colors for FUD blocks
+                    ctx.fill();
+                    ctx.closePath();
+                }
+            }
+        }
+    }
+
+    function collisionDetection() {
+        for(let c = 0; c < brickColumnCount; c++) {
+            for(let r = 0; r < brickRowCount; r++) {
+                const b = bricks[c][r];
+                if(b.status === 1) {
+                    if(gameX > b.x && gameX < b.x + brickWidth && gameY > b.y && gameY < b.y + brickHeight) {
+                        gameDy = -gameDy; // Reverse direction
+                        b.status = 0; // Brick destroyed
+                        score++;
+                        updateStats();
+                        if(score === brickRowCount * brickColumnCount) {
+                            endGame("You built the ULTIMATE BRICK HOUSE! You win the moon mission!");
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    // Main game loop
+    function draw() {
+        if (!gameRunning) return;
+
+        // Clear the canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        drawBricks();
+        drawBall();
+        drawPaddle();
+        
+        if (collisionDetection()) return; // If game won, stop execution
+
+        // Ball Wall Collision Detection
+        if(gameX + gameDx > canvas.width - ballRadius || gameX + gameDx < ballRadius) {
+            gameDx = -gameDx; // Reverse X direction
+        }
+
+        if(gameY + gameDy < ballRadius) {
+            gameDy = -gameDy; // Reverse Y direction (Top wall)
+        } else if(gameY + gameDy > canvas.height - ballRadius) {
+            // Bottom wall (Check paddle collision)
+            if(gameX > gamePaddleX && gameX < gamePaddleX + paddleWidth) {
+                // Hit the paddle (Diamond Hand)
+                gameDy = -gameDy;
+                // Introduce slight spin based on where the ball hits the paddle
+                const relativeIntersectX = (gameX - (gamePaddleX + paddleWidth / 2));
+                gameDx = gameDx + (relativeIntersectX * 0.15); // Add spin/speed change
+            } else {
+                // Ball missed the paddle (Lost a life)
+                lives--;
+                updateStats();
+                if(lives === 0) {
+                    endGame("THE WOLF WINS! Liquidity drained. Try again to save $BRICK!");
+                } else {
+                    // Reset ball and paddle for next life
+                    gameX = canvas.width / 2;
+                    gameY = canvas.height - 30;
+                    gameDx = 2;
+                    gameDy = -2;
+                    gamePaddleX = (canvas.width - paddleWidth) / 2;
+                    messageDiv.innerText = "Life lost. Get ready for the next drop!";
+                    setTimeout(() => messageDiv.innerText = "", 1500);
+                }
+            }
+        }
+
+        // Paddle Movement (Keyboard and Button controls)
+        if(rightPressed && gamePaddleX < canvas.width - paddleWidth) {
+            gamePaddleX += 7;
+        } else if(leftPressed && gamePaddleX > 0) {
+            gamePaddleX -= 7;
+        }
+
+        gameX += gameDx;
+        gameY += gameDy;
+
+        animationFrameId = requestAnimationFrame(draw);
+    }
+
+    // Game Controls - Keyboard, Mouse, and Touch
+
+    // Keyboard Handlers
+    document.addEventListener("keydown", keyDownHandler, false);
+    document.addEventListener("keyup", keyUpHandler, false);
+
+    function keyDownHandler(e) {
+        if(e.key === "Right" || e.key === "ArrowRight") {
+            rightPressed = true;
+        } else if(e.key === "Left" || e.key === "ArrowLeft") {
+            leftPressed = true;
+        }
+    }
+
+    function keyUpHandler(e) {
+        if(e.key === "Right" || e.key === "ArrowRight") {
+            leftPressed = false;
+        } else if(e.key === "Left" || e.key === "ArrowLeft") {
+            leftPressed = false;
+        }
+    }
+
+    // Mouse Move Handler
+    canvas.addEventListener("mousemove", mouseMoveHandler, false);
+
+    function mouseMoveHandler(e) {
+        if (!gameRunning) return;
+        // Calculate mouse position relative to the canvas
+        const canvasRect = canvas.getBoundingClientRect();
+        const relativeX = e.clientX - canvasRect.left; 
+
+        if(relativeX > 0 && relativeX < canvas.width) {
+            gamePaddleX = relativeX - paddleWidth / 2;
+            // Keep paddle within bounds
+            if (gamePaddleX < 0) gamePaddleX = 0;
+            if (gamePaddleX > canvas.width - paddleWidth) gamePaddleX = canvas.width - paddleWidth;
+        }
+    }
+    
+    // Touch Controls (Direct touch on canvas to move paddle)
+    let touchMoveActive = false;
+    canvas.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        touchMoveActive = true;
+    }, false);
+
+    canvas.addEventListener('touchmove', (e) => {
+        if (!gameRunning || !touchMoveActive) return;
+        e.preventDefault();
+        const touchX = e.touches[0].clientX;
+        const canvasRect = canvas.getBoundingClientRect();
+        const relativeX = touchX - canvasRect.left;
+        
+        if(relativeX > 0 && relativeX < canvas.width) {
+            gamePaddleX = relativeX - paddleWidth / 2;
+            if (gamePaddleX < 0) gamePaddleX = 0;
+            if (gamePaddleX > canvas.width - paddleWidth) gamePaddleX = canvas.width - paddleWidth;
+        }
+    }, false);
+
+    canvas.addEventListener('touchend', () => {
+        touchMoveActive = false;
+    }, false);
+
+    // Specific buttons for touch control on mobile (left/right buttons)
+    leftBtn.addEventListener('mousedown', () => leftPressed = true);
+    leftBtn.addEventListener('mouseup', () => leftPressed = false);
+    leftBtn.addEventListener('touchstart', (e) => { e.preventDefault(); leftPressed = true; });
+    leftBtn.addEventListener('touchend', () => leftPressed = false);
+
+    rightBtn.addEventListener('mousedown', () => rightPressed = true);
+    rightBtn.addEventListener('mouseup', () => rightPressed = false);
+    rightBtn.addEventListener('touchstart', (e) => { e.preventDefault(); rightPressed = true; });
+    rightBtn.addEventListener('touchend', () => rightPressed = false);
+
+
+    // Game State Management
+    function startGame() {
+        if (gameRunning) return;
+        initGame();
+        messageDiv.innerText = "HODL mode activated!";
+        startBtn.style.display = 'none';
+        gameRunning = true;
+        draw(); // Start the game loop
+    }
+
+    function endGame(message) {
+        cancelAnimationFrame(animationFrameId);
+        gameRunning = false;
+        messageDiv.innerText = message;
+        startBtn.style.display = 'block';
+        startBtn.innerText = 'PLAY AGAIN?';
+    }
+
+    startBtn.addEventListener('click', startGame);
+
+    // Initial state display
+    initGame();
+    draw(); // Draw initial state
+
+    // --- END BRICK BREAKER GAME LOGIC ---
+</script>
+</body>
+</html>
